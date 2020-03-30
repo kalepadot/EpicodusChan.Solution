@@ -25,13 +25,13 @@ namespace EpicodusChan.Solution.Controllers
         }
 
         // GET api/values/5
-        // [HttpGet("{id}")]
-        // public ActionResult<string> Get(int id)
-        // {
-        //     return "value";
-        // }
+        [HttpGet("{id}")]
+        public ActionResult<Message> Get(int id)
+        {
+            return _db.Messages.FirstOrDefault(entry => entry.MessageId == id);
+        }
 
-        // POST api/animals
+        // POST api/messages
         [HttpPost]
         public void Post([FromBody] Message message)
         {
