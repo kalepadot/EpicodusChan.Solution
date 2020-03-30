@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EpicodusChan.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EpicodusChan.Solution.Controllers
 {
@@ -39,22 +40,22 @@ namespace EpicodusChan.Solution.Controllers
           _db.SaveChanges(); 
         }
 
-        // // PUT api/values/5
-        // [HttpPut("{id}")]
-        // public void Put(int id, [FromBody] string value)
-        // {
-        //   message.MessageId = id;
-        //   _db.Entry(message).State = EntityState.Modified;
-        //   _db.SaveChanges();
-        // }
+        // PUT api/messages/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] Message message)
+        {
+          message.MessageId = id;
+          _db.Entry(message).State = EntityState.Modified;
+          _db.SaveChanges();
+        }
 
         // // DELETE api/values/5
-        // [HttpDelete("{id}")]
-        // public void Delete(int id)
-        // {
-        //   var messageToDelete = _db.Messages.FirstOrDefault(entry => entry.MessageId == id);
-        //   _db.Messages.Remove(messageToDelete);
-        //   -db.SaveChanges();
-        // }
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+          var messageToDelete = _db.Messages.FirstOrDefault(entry => entry.MessageId == id);
+          _db.Messages.Remove(messageToDelete);
+          _db.SaveChanges();
+        }
     }
 }
