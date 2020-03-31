@@ -24,11 +24,11 @@ namespace EpicodusChan.Solution.Controllers
         {
           var query = _db.Groups.AsQueryable(); 
 
-          if (title != null)
+          if (groupName != null)
           {
             query = query.Where(post => post.GroupName == groupName);
           }
-          if (entry != null)
+          if (topic != null)
           {
             query = query.Where(post => post.Topic == topic );
           }
