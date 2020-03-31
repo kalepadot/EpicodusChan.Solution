@@ -18,6 +18,4 @@ namespace EpicodusChan.Models
 		public ICollection<Message> Messages { get; set; }
 
 	}
-     
-        
 }
