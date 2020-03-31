@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EpicodusChan.Migrations
 {
     [DbContext(typeof(EpicodusChanContext))]
-    [Migration("20200330224110_Initial")]
+    [Migration("20200331183652_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,22 +18,63 @@ namespace EpicodusChan.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("EpicodusChan.Models.Group", b =>
+                {
+                    b.Property<int>("GroupId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("GroupName");
+
+                    b.Property<string>("Topic");
+
+                    b.HasKey("GroupId");
+
+                    b.ToTable("Groups");
+
+                    b.HasData(
+                        new
+                        {
+                            GroupId = 1,
+                            GroupName = "Talk About Your Pet",
+                            Topic = "Pets"
+                        },
+                        new
+                        {
+                            GroupId = 2,
+                            GroupName = "Talking Tech",
+                            Topic = "Tech"
+                        },
+                        new
+                        {
+                            GroupId = 3,
+                            GroupName = "Study Buddies",
+                            Topic = "Education"
+                        });
+                });
+
             modelBuilder.Entity("EpicodusChan.Models.Message", b =>
                 {
                     b.Property<int>("MessageId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Date");
+                    b.Property<string>("Date")
+                        .IsRequired();
 
-                    b.Property<string>("Entry");
+                    b.Property<string>("Entry")
+                        .IsRequired();
 
-                    b.Property<string>("GroupName");
+                    b.Property<int>("GroupId");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100);
 
-                    b.Property<string>("UserName");
+                    b.Property<string>("UserName")
+                        .IsRequired();
 
                     b.HasKey("MessageId");
+
+                    b.HasIndex("GroupId");
 
                     b.ToTable("Messages");
 
@@ -43,7 +84,7 @@ namespace EpicodusChan.Migrations
                             MessageId = 1,
                             Date = "04/20/2020",
                             Entry = "Jeremy has the coolest cat ever, who happens to be named Haru",
-                            GroupName = "Animals",
+                            GroupId = 1,
                             Title = "Cats Named Haru",
                             UserName = "JDawg"
                         },
@@ -52,7 +93,7 @@ namespace EpicodusChan.Migrations
                             MessageId = 2,
                             Date = "04/19/2020",
                             Entry = "My name Jef and I really want 2 black cats named Huginn and Muninn",
-                            GroupName = "Animals",
+                            GroupId = 1,
                             Title = "Huginn & Muninn",
                             UserName = "GMoney"
                         },
@@ -61,7 +102,7 @@ namespace EpicodusChan.Migrations
                             MessageId = 3,
                             Date = "03/31/2020",
                             Entry = "I would love to have a dog named Freya, not sure what breed to get.",
-                            GroupName = "Animals",
+                            GroupId = 1,
                             Title = "Freya",
                             UserName = "GMoney"
                         },
@@ -70,7 +111,7 @@ namespace EpicodusChan.Migrations
                             MessageId = 4,
                             Date = "04/7/2020",
                             Entry = "I want to know, once and for all which is better. Mac or PC? (Hint:It's mac)",
-                            GroupName = "Technology",
+                            GroupId = 2,
                             Title = "PC vs Mac",
                             UserName = "DWizzle"
                         },
@@ -79,10 +120,18 @@ namespace EpicodusChan.Migrations
                             MessageId = 5,
                             Date = "04/01/2020",
                             Entry = "I'm taking a class on statistics and for a project I am taking a poll of peoples favorite fruits. Please comment below your answer!",
-                            GroupName = "General Discussion",
+                            GroupId = 3,
                             Title = "Favorite Fruit?",
                             UserName = "GMoney"
                         });
+                });
+
+            modelBuilder.Entity("EpicodusChan.Models.Message", b =>
+                {
+                    b.HasOne("EpicodusChan.Models.Group")
+                        .WithMany("Messages")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
