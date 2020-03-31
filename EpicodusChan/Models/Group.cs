@@ -10,7 +10,11 @@ namespace EpicodusChan.Models
 		}
 		
 		public int GroupId { get; set; }
+
 		public string GroupName { get; set; }
+
+		public string Topic { get; set; }
+
 		public ICollection<Message> Messages { get; set; }
 
 	}

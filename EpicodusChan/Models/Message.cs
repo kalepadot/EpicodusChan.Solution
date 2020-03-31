@@ -20,7 +20,6 @@ namespace EpicodusChan.Models
 
     [Required]
     public string Date { get; set; }
-    public Group Group { get; set; }
     
   }
 }
