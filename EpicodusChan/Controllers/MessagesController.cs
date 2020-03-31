@@ -20,7 +20,7 @@ namespace EpicodusChan.Solution.Controllers
 
         // GET api/messages
         [HttpGet]
-        public ActionResult<IEnumerable<Message>> Get(string title, string userName, string entry, string date, string groupName)
+        public ActionResult<IEnumerable<Message>> Get(string title, string userName, string entry, string date )
         {
           var query = _db.Messages.AsQueryable(); 
 
@@ -40,10 +40,7 @@ namespace EpicodusChan.Solution.Controllers
           {
             query = query.Where(post => post.Date == date);
           }
-          if (date != null)
-          {
-            query = query.Where(post => post.GroupName == groupName);
-          }
+        
           return  query.ToList();
         }
 
