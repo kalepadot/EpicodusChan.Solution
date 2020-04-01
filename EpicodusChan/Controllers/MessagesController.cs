@@ -20,7 +20,7 @@ namespace EpicodusChan.Solution.Controllers
 
         // GET api/messages
         [HttpGet]
-        public ActionResult<IEnumerable<Message>> Get(string title, string userName, string entry, string date )
+        public ActionResult<IEnumerable<Message>> Get(int groupId, string title, string userName, string entry, string date )
         {
           var query = _db.Messages.AsQueryable(); 
 
@@ -40,6 +40,10 @@ namespace EpicodusChan.Solution.Controllers
           {
             query = query.Where(post => post.Date == date);
           }
+          if (groupId !=0 )
+          {
+            query = query.Where(post => post.GroupId == groupId);
+          }
         
           return  query.ToList();
         }
@@ -56,6 +60,9 @@ namespace EpicodusChan.Solution.Controllers
         public void Post([FromBody] Message message)
         {
           _db.Messages.Add(message);
+          Group group = _db.Groups.FirstOrDefault(gp => gp.GroupId == message.GroupId);
+          group.Messages.Add(message);
+          _db.Entry(group).State = EntityState.Modified;
           _db.SaveChanges(); 
         }
 
