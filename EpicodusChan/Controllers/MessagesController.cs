@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EpicodusChan.Solution.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Groups/{GroupId}/[controller]")]
     [ApiController]
     public class MessagesController : ControllerBase
     {
@@ -18,7 +18,7 @@ namespace EpicodusChan.Solution.Controllers
           _db = db;
         }
 
-        // GET api/messages
+        // GET api/Messages
         [HttpGet]
         public ActionResult<IEnumerable<Message>> Get(int groupId, string title, string userName, string entry, string date )
         {
@@ -48,29 +48,31 @@ namespace EpicodusChan.Solution.Controllers
           return  query.ToList();
         }
 
-        // GET api/values/5
+        // GET api/Messages/5
         [HttpGet("{id}")]
-        public ActionResult<Message> Get(int id)
+        public ActionResult<Message> Get(int groupId, int id)
         {
             return _db.Messages.FirstOrDefault(entry => entry.MessageId == id);
         }
 
         // POST api/messages
         [HttpPost]
-        public void Post([FromBody] Message message)
+        public void Post(int groupId, [FromBody] Message message)
         {
+          message.GroupId = groupId;
           _db.Messages.Add(message);
-          // Group group = _db.Groups.FirstOrDefault(gp => gp.GroupId == message.GroupId);
-          // group.Messages.Add(message);
-          // _db.Entry(group).State = EntityState.Modified;
+          Group group = _db.Groups.FirstOrDefault(gp => gp.GroupId == message.GroupId);
+          group.Messages.Add(message);
+          _db.Entry(group).State = EntityState.Modified;
           _db.SaveChanges(); 
         }
 
-        // PUT api/messages/5
+        // PUT api/Messages/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Message message)
+        public void Put(int id, int groupId, [FromBody] Message message)
         {
           message.MessageId = id;
+          message.GroupId = groupId;
           _db.Entry(message).State = EntityState.Modified;
           _db.SaveChanges();
         }
@@ -79,7 +81,7 @@ namespace EpicodusChan.Solution.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-          var messageToDelete = _db.Messages.FirstOrDefault(entry => entry.MessageId == id);
+          Message messageToDelete = _db.Messages.FirstOrDefault(entry => entry.MessageId == id);
           _db.Messages.Remove(messageToDelete);
           _db.SaveChanges();
         }
