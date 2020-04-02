@@ -20,32 +20,10 @@ namespace EpicodusChan.Solution.Controllers
 
         // GET api/Messages
         [HttpGet]
-        public ActionResult<IEnumerable<Message>> Get(int groupId, string title, string userName, string entry, string date )
+        public ActionResult<IEnumerable<Message>> Get(int groupId)
         {
-          var query = _db.Messages.AsQueryable(); 
-        
-          if (title != null)
-          {
-            query = query.Where(post => post.Title == title);
-          }
-          if (userName != null)
-          {
-            query = query.Where(post => post.UserName == userName);
-          }
-          if (entry != null)
-          {
-            query = query.Where(post => post.Entry == entry );
-          }
-          if (date != null)
-          {
-            query = query.Where(post => post.Date == date);
-          }
-          if (groupId != 0 )
-          {
-            query = query.Where(post => post.GroupId == groupId);
-          }
-        
-          return  query.ToList();
+         List<Message> messages = _db.Messages.Where(message => message.GroupId == groupId).ToList();
+         return messages;
         }
 
         // GET api/Messages/5

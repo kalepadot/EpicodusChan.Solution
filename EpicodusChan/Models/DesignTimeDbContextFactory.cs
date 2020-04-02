@@ -7,7 +7,6 @@ namespace EpicodusChan.Models
 {
   public class EpicodusChanContextFactory : IDesignTimeDbContextFactory<EpicodusChanContext>
   {
-
     EpicodusChanContext IDesignTimeDbContextFactory<EpicodusChanContext>.CreateDbContext(string[] args)
     {
       IConfigurationRoot configuration = new ConfigurationBuilder()
