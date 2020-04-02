@@ -26,17 +26,6 @@ This is a project designed to create a functional API for a message board applic
 * PUT /api/Groups/{GroupId}/Messages/{id}
 * DELETE /api/Groups/{GroupId}/Messages/{id}
 
-## Behavior Driven Development Specifications
-
-| Specification | Input | Output |
-|:-------------:|:-----:|:------:|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  | 
-
-
-
 ## Setup/Installation Requirements
 
 ### Install .NET Core
@@ -120,7 +109,7 @@ _To view/edit the source code of this application, open the contents of the ``Ep
 * _MySQL 8.0 CE_
 * _MySQL Workbench 8.0 CE_
 * _Entity Framework Core 2.2_
-* _Michelle M README Template_
+* _Swagger_
 
 ### License
 
