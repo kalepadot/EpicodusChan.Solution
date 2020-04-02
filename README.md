@@ -8,9 +8,23 @@
 
 This is a project designed to create a functional API for a message board application. It should allow for pulling  and pushing data to and from a database.
 
-## Additional API Documentation
+## API ENDPOINTS: 
 
-https://app.swaggerhub.com/apis-docs/brandanpdx/travel/v1#/
+#### GROUPS: 
+
+* GET /api/Groups
+* POST /api/Groups
+* GET /api/Groups/{id}
+* PUT /api/Groups/{id}
+* DELETE /api/Groups/{id}
+
+#### MESSAGES: 
+
+* GET /api/Groups/{GroupId}/Messages
+* POST /api/Groups/{GroupId}/Messages
+* GET /api/Groups/{GroupId}/Messages{id}
+* PUT /api/Groups/{GroupId}/Messages/{id}
+* DELETE /api/Groups/{GroupId}/Messages/{id}
 
 ## Behavior Driven Development Specifications
 
